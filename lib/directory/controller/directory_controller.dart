@@ -19,12 +19,37 @@ class DirectoryController extends StateNotifier<DirectoryState> {
       final providersResult =
           await directoryService.getHealthProvidersRemotely();
       if (providersResult.isEmpty) return;
-      state = state.copyWith(
-        healthProviders: providersResult,
-        selectedProvider: providersResult.first,
-      );
+      state = state.copyWith(healthProviders: providersResult);
     } catch (e) {
       state = state.copyWith(error: '$e');
     }
+  }
+
+  void searchProviders(String searchQuery) {
+    state = state.copyWith(searchQuery: searchQuery);
+  }
+
+  void setSpecialty(String specialty) {
+    state = state.copyWith(specialtyFilterQuery: specialty);
+  }
+
+  void setSubSpecialty(String subSpecialty) {
+    state = state.copyWith(subSpecialtyFilterQuery: subSpecialty);
+  }
+
+  void removeSpecialty() {
+    state = state.clearSpecialtyFilter();
+  }
+
+  void removeSubSpecialty() {
+    state = state.clearSubSpecialtyFilter();
+  }
+
+  void clearSearch() {
+    state = state.clearSearch();
+  }
+
+  void clearSelectedProvider() {
+    state = state.clearSelectedProvider();
   }
 }

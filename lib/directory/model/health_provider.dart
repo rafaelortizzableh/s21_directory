@@ -100,23 +100,30 @@ class HealthProvider {
   factory HealthProvider.fromRemoteEntity(
       HealthProviderRemoteEntity remoteEntity) {
     try {
-      final telephonesList = <String>[];
+      final telephonesListWithBreak = <String>[];
       if (remoteEntity.telefono.contains('<br>')) {
         final allPhones = remoteEntity.telefono.split('<br>');
-        telephonesList.addAll(allPhones);
+        telephonesListWithBreak.addAll(allPhones);
       } else {
-        telephonesList.add(remoteEntity.telefono);
+        telephonesListWithBreak.add(remoteEntity.telefono);
       }
 
-      final proceduresList = <String>[];
+      final proceduresListWithBreak = <String>[];
       if (remoteEntity.procedimientos.contains('<br>')) {
         final allProcedures = remoteEntity.procedimientos.split('<br>');
-        proceduresList.addAll(allProcedures);
+        proceduresListWithBreak.addAll(allProcedures);
       } else {
-        proceduresList.add(remoteEntity.telefono);
+        proceduresListWithBreak.add(remoteEntity.telefono);
       }
-      telephonesList.removeWhere((e) => e.trim().isEmpty);
-      proceduresList.removeWhere((e) => e.trim().isEmpty);
+      telephonesListWithBreak.removeWhere((e) => e.trim().isEmpty);
+      proceduresListWithBreak.removeWhere((e) => e.trim().isEmpty);
+      final telephonesList = telephonesListWithBreak
+          .map((word) => word.replaceAll('<br>', ''))
+          .toList();
+      final proceduresList = proceduresListWithBreak
+          .map((word) => word.replaceAll('<br>', ''))
+          .toList();
+
       return HealthProvider(
         imageUrl: remoteEntity.picture.isNotEmpty
             ? remoteEntity.picture

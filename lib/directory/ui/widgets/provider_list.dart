@@ -9,33 +9,50 @@ class HealthProvidersListWrapper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var providerList = ref.watch(directoryProvider).healthProviders;
+    final providerList = ref.watch(directoryProvider).healthProviders;
+    var filteredList = ref.watch(directoryProvider).searchProviders();
     if (providerList.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
-    return HealthProvidersList(providers: providerList);
+    return HealthProvidersList(providers: filteredList);
   }
 }
 
-class HealthProvidersList extends ConsumerWidget {
+class HealthProvidersList extends ConsumerStatefulWidget {
   const HealthProvidersList({Key? key, required this.providers})
       : super(key: key);
   final List<HealthProvider> providers;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _HealthProvidersListState();
+}
+
+class _HealthProvidersListState extends ConsumerState<HealthProvidersList> {
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: providers.length,
+        controller: _scrollController,
+        shrinkWrap: true,
+        itemCount: widget.providers.length,
         itemBuilder: (context, index) {
           return HealthProviderListTile(
-            healthProvider: providers[index],
+            healthProvider: widget.providers[index],
             onPressed: () => ref
                 .read(directoryProvider.notifier)
-                .selectProvider(providers[index]),
+                .selectProvider(widget.providers[index]),
             tileColor:
                 index.isEven ? AppConstants.s21Grey : AppConstants.s21White,
             isSelected: ref.watch(directoryProvider).selectedProvider ==
-                providers[index],
+                widget.providers[index],
           );
         });
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:s21_directory/core/core.dart';
 import '../directory/directory.dart';
 
 class MyApp extends StatelessWidget {
@@ -10,19 +11,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Directorio de Prestadores',
       theme: ThemeData(
-        primaryColor: const Color(0xFF9b120b),
-        primarySwatch: Colors.amber,
-      ),
-      home: const MyHomePageMobileLayout(),
+          primaryColor: AppConstants.s21Red,
+          primarySwatch: Colors.red,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: AppConstants.s21Red,
+          )),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePageMobileLayout extends StatelessWidget {
-  const MyHomePageMobileLayout({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const AppLayout();
+    return const ResponsiveLayout();
   }
 }

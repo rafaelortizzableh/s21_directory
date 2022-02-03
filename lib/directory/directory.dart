@@ -1,10 +1,14 @@
 export 'model/health_provider.dart';
 export 'model/health_provider_remote_entity.dart';
 export 'ui/widgets/provider_tile.dart';
+export 'ui/widgets/generic_dropdown.dart';
 export 'ui/widgets/provider_list.dart';
-export 'ui/layout/home_mobile_layout.dart';
-export 'ui/layout/home_desktop_layout.dart';
-export 'ui/layout/base_scaffold.dart';
+export 'ui/widgets/provider_details.dart';
+export 'ui/widgets/search_bar.dart';
+export 'ui/widgets/search_and_filters.dart';
+export 'ui/layout/one_column_layout.dart';
+export 'ui/layout/two_column_layout.dart';
+export 'ui/layout/responsive_layout.dart';
 export 'controller/directory_controller_exports.dart';
 export 'service/directory_service.dart';
 export 'directory_providers.dart';

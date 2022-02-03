@@ -23,6 +23,10 @@ class HealthProviderListTile extends StatelessWidget {
       tileColor:
           isSelected ? Colors.redAccent.shade100.withOpacity(0.1) : tileColor,
       title: Text(healthProvider.name),
+      subtitle: healthProvider.speciality != null &&
+              healthProvider.speciality!.isNotEmpty
+          ? Text(healthProvider.speciality!)
+          : const SizedBox(),
       leading: SizedBox(
         height: 40.0,
         width: 40.0,
