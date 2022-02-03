@@ -11,11 +11,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Directorio de Prestadores',
       theme: ThemeData(
-          primaryColor: AppConstants.s21Red,
-          primarySwatch: Colors.red,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: AppConstants.s21Red,
-          )),
+        primaryColor: AppConstants.s21Red,
+        primarySwatch: Colors.red,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppConstants.s21Red,
+        ),
+      ),
       home: const HomePage(),
     );
   }

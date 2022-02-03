@@ -14,7 +14,7 @@ class TwoColumnLayout extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: const [
           Flexible(
-            child: Material(elevation: 3, child: HealthProvidersListWrapper()),
+            child: Material(elevation: 2, child: HealthProvidersListWrapper()),
           ),
           Expanded(flex: 2, child: HealthProviderDetails()),
         ],
