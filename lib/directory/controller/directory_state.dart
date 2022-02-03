@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import '../directory.dart';
 
 class DirectoryState {
@@ -41,7 +39,7 @@ class DirectoryState {
   List<String> allSpecialties() {
     var allSpecialties = <String>[];
     for (var provider in healthProviders) {
-      if (provider.speciality != null) {
+      if (provider.speciality != null && provider.speciality!.isNotEmpty) {
         final specialty = provider.speciality;
         allSpecialties.add(specialty!);
       }
@@ -53,7 +51,8 @@ class DirectoryState {
   List<String> allSubSpecialties() {
     var allSubSpecialties = <String>[];
     for (var provider in healthProviders) {
-      if (provider.subSpeciality != null) {
+      if (provider.subSpeciality != null &&
+          provider.subSpeciality!.isNotEmpty) {
         var subSpeciality = provider.subSpeciality;
         allSubSpecialties.add(subSpeciality!);
       }

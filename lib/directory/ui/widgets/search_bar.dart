@@ -3,20 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:s21_directory/directory/directory.dart';
 
-class name extends ConsumerStatefulWidget {
-  const name({Key? key}) : super(key: key);
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _nameState();
-}
-
-class _nameState extends ConsumerState<name> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
 class SearchBar extends ConsumerStatefulWidget {
   const SearchBar({Key? key}) : super(key: key);
   static const InputBorder border = OutlineInputBorder(
