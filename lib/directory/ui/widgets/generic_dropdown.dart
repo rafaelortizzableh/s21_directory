@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:s21_directory/core/constants.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final String hintText;
@@ -36,8 +35,7 @@ class AppDropdownInput<T> extends StatelessWidget {
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 8.0),
                     labelText: hintText,
-                    // border:
-                    //     OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
+                    border: InputBorder.none,
                   ),
                   isEmpty: value != null && value == '',
                   child: DropdownButtonHideUnderline(
