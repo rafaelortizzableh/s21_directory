@@ -1,4 +1,5 @@
 import '../directory.dart';
+import '../../core/core.dart';
 
 class DirectoryState {
   final List<HealthProvider> healthProviders;
@@ -80,25 +81,27 @@ class DirectoryState {
     }
     if (searchQuery != null && searchQuery != '') {
       final searchByNameProviders = providersToSearch.where((element) {
-        return element.name.toLowerCase().contains(searchQuery!.toLowerCase());
+        return element.name.withoutDiacriticalMarks
+            .toLowerCase()
+            .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
       });
       final searchByProcedureProviders = providersToSearch.where((element) {
         return element.proceduresString != null &&
-            element.proceduresString!
+            element.proceduresString!.withoutDiacriticalMarks
                 .toLowerCase()
-                .contains(searchQuery!.toLowerCase());
+                .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
       });
       final searchBySpecialtyProviders = providersToSearch.where((element) {
         return element.speciality != null &&
-            element.speciality!
+            element.speciality!.withoutDiacriticalMarks
                 .toLowerCase()
-                .contains(searchQuery!.toLowerCase());
+                .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
       });
       final searchBySubSpecialtyProviders = providersToSearch.where((element) {
         return element.subSpeciality != null &&
-            element.subSpeciality!
+            element.subSpeciality!.withoutDiacriticalMarks
                 .toLowerCase()
-                .contains(searchQuery!.toLowerCase());
+                .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
       });
 
       final newList = <HealthProvider>{

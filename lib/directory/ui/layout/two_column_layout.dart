@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:s21_directory/core/core.dart';
 
 import '../../directory.dart';
 
@@ -13,10 +12,11 @@ class TwoColumnLayout extends StatelessWidget {
       width: maxWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Flexible(child: HealthProvidersListWrapper()),
-          Container(color: AppConstants.s21Red, width: 1.0),
-          const Expanded(flex: 2, child: HealthProviderDetails())
+        children: const [
+          Flexible(
+            child: Material(elevation: 3, child: HealthProvidersListWrapper()),
+          ),
+          Expanded(flex: 2, child: HealthProviderDetails()),
         ],
       ),
     );

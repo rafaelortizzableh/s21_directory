@@ -11,7 +11,7 @@ class ResponsiveLayout extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(150.0),
           child: AppBar(
-              title: const Text('Directorio de proveedores'),
+              title: const Text('Directorio de Prestadores'),
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50.0),
                 child: AppBarSearchAndFilters(
