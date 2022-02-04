@@ -123,6 +123,8 @@ class HealthProvider {
       final proceduresList = proceduresListWithBreak
           .map((word) => word.replaceAll('<br>', ''))
           .toList();
+      proceduresList.removeWhere((element) => element.isEmpty);
+      telephonesList.removeWhere((element) => element.isEmpty);
 
       return HealthProvider(
         imageUrl: remoteEntity.picture.isNotEmpty

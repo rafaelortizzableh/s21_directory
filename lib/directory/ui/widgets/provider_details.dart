@@ -84,13 +84,13 @@ class LocationText extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final noBuilding =
-        healthProvider.building != null || healthProvider.building!.isEmpty;
+        healthProvider.building == null || healthProvider.building!.isEmpty;
     final noConsultory =
-        healthProvider.consultory != null || healthProvider.consultory!.isEmpty;
+        healthProvider.consultory == null || healthProvider.consultory!.isEmpty;
     final noModule =
-        healthProvider.module != null || healthProvider.module!.isEmpty;
+        healthProvider.module == null || healthProvider.module!.isEmpty;
     final noFloor =
-        healthProvider.floor != null || healthProvider.floor!.isEmpty;
+        healthProvider.floor == null || healthProvider.floor!.isEmpty;
     final noLocation = noBuilding && noConsultory && noModule && noFloor;
     return noLocation
         ? const SizedBox()

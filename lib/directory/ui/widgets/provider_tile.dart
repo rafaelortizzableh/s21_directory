@@ -20,8 +20,9 @@ class HealthProviderListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onPressed,
-      tileColor:
-          isSelected ? Colors.redAccent.shade100.withOpacity(0.1) : tileColor,
+      tileColor: isSelected
+          ? Theme.of(context).primaryColor.withOpacity(0.1)
+          : tileColor,
       title: Text(healthProvider.name),
       subtitle: healthProvider.speciality != null &&
               healthProvider.speciality!.isNotEmpty

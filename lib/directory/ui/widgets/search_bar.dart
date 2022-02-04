@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:s21_directory/directory/directory.dart';
 
+import '../../../core/core.dart';
+
 class SearchBar extends ConsumerStatefulWidget {
   const SearchBar({Key? key}) : super(key: key);
   static const InputBorder border = OutlineInputBorder(
@@ -40,6 +42,13 @@ class _SearchBarState extends ConsumerState<SearchBar> {
                 controller: _textController,
                 textInputAction: TextInputAction.search,
                 autocorrect: false,
+                onSubmitted: (_) {
+                  final platform =
+                      ref.read(platformCheckerProvider).checkPlatform();
+                  if (platform == TypeOfPlatform.android) {
+                    FocusScope.of(context).unfocus();
+                  }
+                },
                 onChanged: (search) => ref
                     .read(directoryProvider.notifier)
                     .searchProviders(search),
