@@ -46,9 +46,16 @@ class _HealthProvidersListState extends ConsumerState<HealthProvidersList> {
         itemBuilder: (context, index) {
           return HealthProviderListTile(
             healthProvider: widget.providers[index],
-            onPressed: () => ref
-                .read(directoryProvider.notifier)
-                .selectProvider(widget.providers[index]),
+            onPressed: () {
+              ref
+                  .read(directoryProvider.notifier)
+                  .selectProvider(widget.providers[index]);
+              final platform =
+                  ref.read(platformCheckerProvider).checkPlatform();
+              if (platform != TypeOfPlatform.other) {
+                FocusScope.of(context).unfocus();
+              }
+            },
             tileColor:
                 index.isEven ? AppConstants.s21Grey : AppConstants.s21White,
             isSelected: ref.watch(directoryProvider).selectedProvider ==

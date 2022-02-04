@@ -101,10 +101,11 @@ class LocationText extends StatelessWidget {
                   style: theme.textTheme.subtitle1
                       ?.copyWith(fontWeight: FontWeight.bold)),
               if (!noBuilding)
-                SelectableText('Edificio: ${healthProvider.building}'),
-              if (!noFloor) SelectableText('${healthProvider.floor}'),
-              if (!noModule) SelectableText('${healthProvider.module}'),
-              if (!noConsultory) SelectableText('${healthProvider.consultory}'),
+                SelectableText('Edificio: ${healthProvider.building!.trim()}'),
+              if (!noFloor) SelectableText(healthProvider.floor!.trim()),
+              if (!noModule) SelectableText(healthProvider.module!.trim()),
+              if (!noConsultory)
+                SelectableText(healthProvider.consultory!.trim()),
               const SizedBox(height: 16.0),
             ],
           );
@@ -131,7 +132,7 @@ class ContactText extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(height: 4.0),
               for (String telephone in healthProvider.telephones!)
-                SelectableText(telephone),
+                SelectableText(telephone.trim()),
               const SizedBox(height: 16.0),
             ],
           );
@@ -159,7 +160,7 @@ class ProceduresText extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(height: 8.0),
               for (String procedure in healthProvider.procedures!)
-                SelectableText(procedure),
+                SelectableText(procedure.trim()),
             ],
           );
   }
