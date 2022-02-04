@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../core/core.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final String hintText;
@@ -44,11 +45,18 @@ class AppDropdownInput<T> extends StatelessWidget {
                       isExpanded: true,
                       isDense: true,
                       onChanged: onChanged,
+                      style: const TextStyle(overflow: TextOverflow.ellipsis),
                       items: options.map((T value) {
                         return DropdownMenuItem<T>(
                           value: value,
                           child: Text(
                             getLabel(value),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(color: AppConstants.s21Black),
                           ),
                         );
                       }).toList(),
