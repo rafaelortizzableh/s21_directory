@@ -42,6 +42,20 @@ class _SearchBarState extends ConsumerState<SearchBar> {
                 controller: _textController,
                 textInputAction: TextInputAction.search,
                 autocorrect: false,
+                onSaved: (_) {
+                  final platform =
+                      ref.read(platformCheckerProvider).checkPlatform();
+                  if (platform == TypeOfPlatform.android) {
+                    FocusScope.of(context).unfocus();
+                  }
+                },
+                onEditingComplete: () {
+                  final platform =
+                      ref.read(platformCheckerProvider).checkPlatform();
+                  if (platform == TypeOfPlatform.android) {
+                    FocusScope.of(context).unfocus();
+                  }
+                },
                 onFieldSubmitted: (_) {
                   final platform =
                       ref.read(platformCheckerProvider).checkPlatform();
