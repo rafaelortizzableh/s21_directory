@@ -37,12 +37,12 @@ class _SearchBarState extends ConsumerState<SearchBar> {
         child: Row(
           children: [
             Expanded(
-              child: TextField(
+              child: TextFormField(
                 maxLines: 1,
                 controller: _textController,
                 textInputAction: TextInputAction.search,
                 autocorrect: false,
-                onSubmitted: (_) {
+                onFieldSubmitted: (_) {
                   final platform =
                       ref.read(platformCheckerProvider).checkPlatform();
                   if (platform == TypeOfPlatform.android) {
