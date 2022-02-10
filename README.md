@@ -1,16 +1,11 @@
 # s21_directory
 
-A new Flutter project.
+A simple responsive application to see the Medical Directory of Fundación Salud Siglo 21.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This app is not intended to be built, but you may see the result by visiting [directorio.saludsiglo21.org](https://directorio.saludsiglo21.org)
 
-A few resources to get you started if this is your first Flutter project:
+## About the tools used
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+State Management & Dependency Injection are handled with Riverpod.
