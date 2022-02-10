@@ -131,8 +131,14 @@ class ContactText extends StatelessWidget {
                   style: theme.textTheme.subtitle1
                       ?.copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(height: 4.0),
-              for (String telephone in healthProvider.telephones!)
-                SelectableText(telephone.trim()),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: healthProvider.telephones!.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: ((context, index) {
+                    final telephone = healthProvider.telephones![index];
+                    return SelectableText(telephone.trim());
+                  })),
               const SizedBox(height: 16.0),
             ],
           );
@@ -159,8 +165,14 @@ class ProceduresText extends StatelessWidget {
                   style: theme.textTheme.subtitle1
                       ?.copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(height: 8.0),
-              for (String procedure in healthProvider.procedures!)
-                SelectableText(procedure.trim()),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: healthProvider.procedures!.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: ((context, index) {
+                    final procedure = healthProvider.procedures![index];
+                    return SelectableText(procedure.trim());
+                  })),
             ],
           );
   }
