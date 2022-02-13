@@ -12,71 +12,71 @@ class HealthProviderDetails extends ConsumerWidget {
     final healthProvider = ref.watch(directoryProvider).selectedProvider;
 
     if (healthProvider == null) return const FallBackNoProviderSelected();
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ImageAndTitles(healthProvider: healthProvider),
-            LocationText(healthProvider: healthProvider),
-            ContactText(healthProvider: healthProvider),
-            ProceduresText(healthProvider: healthProvider),
-          ],
+    return Align(
+      alignment: AlignmentDirectional.topStart,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HealthProviderHeader(healthProvider: healthProvider),
+              HealthProviderBody(healthProvider: healthProvider),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class ImageAndTitles extends StatelessWidget {
-  const ImageAndTitles({Key? key, required this.healthProvider})
+class HealthProviderHeader extends StatelessWidget {
+  const HealthProviderHeader({Key? key, required this.healthProvider})
       : super(key: key);
   final HealthProvider healthProvider;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Align(
-          alignment: AlignmentDirectional.center,
-          child: SizedBox(
-            height: 80,
-            width: 80,
-            child: CachedNetworkImage(
-              imageUrl: healthProvider.imageUrl,
+    final hasSpecialty = healthProvider.speciality != null &&
+        healthProvider.speciality!.isNotEmpty;
+    return SelectableText.rich(
+      TextSpan(children: [
+        WidgetSpan(
+          child: Align(
+            alignment: AlignmentDirectional.center,
+            child: SizedBox(
+              height: 80,
+              width: 80,
+              child: CachedNetworkImage(
+                imageUrl: healthProvider.imageUrl,
+              ),
             ),
           ),
         ),
-        const SizedBox(height: 8.0),
-        SelectableText(
-          healthProvider.name,
+        const WidgetSpan(child: SizedBox(height: 8.0)),
+        TextSpan(
+          text: '${healthProvider.name}\n',
           style: theme.textTheme.subtitle1?.copyWith(
               fontWeight: FontWeight.bold, color: AppConstants.s21Black),
-          textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 4.0),
-        healthProvider.speciality != null &&
-                healthProvider.speciality!.isNotEmpty
-            ? SelectableText('Especialidad \n${healthProvider.speciality}',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.subtitle2?.copyWith(
-                  color: AppConstants.s21Blue,
-                  fontWeight: FontWeight.bold,
-                ))
-            : const SizedBox(),
-        const SizedBox(height: 32.0),
-      ],
+        if (hasSpecialty)
+          TextSpan(
+            text: 'Especialidad \n${healthProvider.speciality}',
+            style: theme.textTheme.subtitle2?.copyWith(
+              color: AppConstants.s21Blue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+      ]),
+      textAlign: TextAlign.center,
     );
   }
 }
 
-class LocationText extends StatelessWidget {
-  const LocationText({Key? key, required this.healthProvider})
+class HealthProviderBody extends StatelessWidget {
+  const HealthProviderBody({Key? key, required this.healthProvider})
       : super(key: key);
   final HealthProvider healthProvider;
 
@@ -92,89 +92,58 @@ class LocationText extends StatelessWidget {
     final noFloor =
         healthProvider.floor == null || healthProvider.floor!.isEmpty;
     final noLocation = noBuilding && noConsultory && noModule && noFloor;
-    return noLocation
-        ? const SizedBox()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SelectableText('Ubicación',
-                  style: theme.textTheme.subtitle1
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-              if (!noBuilding)
-                SelectableText('Edificio: ${healthProvider.building!.trim()}'),
-              if (!noFloor) SelectableText(healthProvider.floor!.trim()),
-              if (!noModule) SelectableText(healthProvider.module!.trim()),
-              if (!noConsultory)
-                SelectableText(healthProvider.consultory!.trim()),
-              const SizedBox(height: 16.0),
-            ],
-          );
-  }
-}
-
-class ContactText extends StatelessWidget {
-  const ContactText({Key? key, required this.healthProvider}) : super(key: key);
-  final HealthProvider healthProvider;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final noContact =
         healthProvider.telephones == null || healthProvider.telephones!.isEmpty;
-    return noContact
-        ? const SizedBox()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SelectableText('Contacto',
-                  style: theme.textTheme.subtitle1
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 4.0),
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: healthProvider.telephones!.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: ((context, index) {
-                    final telephone = healthProvider.telephones![index];
-                    return SelectableText(telephone.trim());
-                  })),
-              const SizedBox(height: 16.0),
-            ],
-          );
-  }
-}
-
-class ProceduresText extends StatelessWidget {
-  const ProceduresText({Key? key, required this.healthProvider})
-      : super(key: key);
-  final HealthProvider healthProvider;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final noProcedures =
         healthProvider.procedures == null || healthProvider.procedures!.isEmpty;
-    return noProcedures
-        ? const SizedBox()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SelectableText.rich(
+          TextSpan(
             children: [
-              SelectableText('Procedimientos',
+              if (!noLocation) ...[
+                TextSpan(
+                  text: 'Ubicación\n',
                   style: theme.textTheme.subtitle1
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8.0),
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: healthProvider.procedures!.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: ((context, index) {
-                    final procedure = healthProvider.procedures![index];
-                    return SelectableText(procedure.trim());
-                  })),
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                if (!noBuilding)
+                  TextSpan(
+                      text: 'Edificio: ${healthProvider.building!.trim()}\n'),
+                if (!noFloor)
+                  TextSpan(text: '${healthProvider.floor!.trim()}\n'),
+                if (!noModule)
+                  TextSpan(text: '${healthProvider.module!.trim()}\n'),
+                if (!noConsultory)
+                  TextSpan(text: '${healthProvider.consultory!.trim()}\n'),
+                const WidgetSpan(child: SizedBox(height: 32.0)),
+              ],
+              if (!noContact) ...[
+                TextSpan(
+                  text: 'Contacto\n',
+                  style: theme.textTheme.subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                for (final telephone in healthProvider.telephones!)
+                  TextSpan(text: telephone),
+                const TextSpan(text: '\n'),
+                const WidgetSpan(child: SizedBox(height: 32.0)),
+              ],
+              if (!noProcedures) ...[
+                TextSpan(
+                  text: 'Procedimientos\n',
+                  style: theme.textTheme.subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                for (final procedure in healthProvider.procedures!)
+                  TextSpan(text: procedure),
+              ],
             ],
-          );
+          ),
+        ),
+      ],
+    );
   }
 }
 

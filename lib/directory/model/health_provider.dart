@@ -113,7 +113,7 @@ class HealthProvider {
         final allProcedures = remoteEntity.procedimientos.split('<br>');
         proceduresListWithBreak.addAll(allProcedures);
       } else {
-        proceduresListWithBreak.add(remoteEntity.telefono);
+        proceduresListWithBreak.add(remoteEntity.procedimientos);
       }
       telephonesListWithBreak.removeWhere((e) => e.trim().isEmpty);
       proceduresListWithBreak.removeWhere((e) => e.trim().isEmpty);
@@ -123,8 +123,8 @@ class HealthProvider {
       final proceduresList = proceduresListWithBreak
           .map((word) => word.replaceAll('<br>', ''))
           .toList();
-      proceduresList.removeWhere((element) => element.isEmpty);
-      telephonesList.removeWhere((element) => element.isEmpty);
+      proceduresList.removeWhere((element) => element.trim().isEmpty);
+      telephonesList.removeWhere((element) => element.trim().isEmpty);
 
       return HealthProvider(
         imageUrl: remoteEntity.picture.isNotEmpty
