@@ -41,7 +41,6 @@ class _HealthProvidersListState extends ConsumerState<HealthProvidersList> {
   Widget build(BuildContext context) {
     return ListView.builder(
         controller: _scrollController,
-        shrinkWrap: true,
         itemCount: widget.providers.length,
         itemBuilder: (context, index) {
           return HealthProviderListTile(
