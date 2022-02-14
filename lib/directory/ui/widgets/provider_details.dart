@@ -41,6 +41,7 @@ class HealthProviderHeader extends StatelessWidget {
     final theme = Theme.of(context);
     final hasSpecialty = healthProvider.speciality != null &&
         healthProvider.speciality!.isNotEmpty;
+
     return SelectableText.rich(
       TextSpan(children: [
         WidgetSpan(
@@ -61,7 +62,7 @@ class HealthProviderHeader extends StatelessWidget {
           style: theme.textTheme.subtitle1?.copyWith(
               fontWeight: FontWeight.bold, color: AppConstants.s21Black),
         ),
-        if (hasSpecialty)
+        if (hasSpecialty) ...[
           TextSpan(
             text: 'Especialidad \n${healthProvider.speciality}',
             style: theme.textTheme.subtitle2?.copyWith(
@@ -69,6 +70,7 @@ class HealthProviderHeader extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+        ],
       ]),
       textAlign: TextAlign.center,
     );
@@ -96,12 +98,23 @@ class HealthProviderBody extends StatelessWidget {
         healthProvider.telephones == null || healthProvider.telephones!.isEmpty;
     final noProcedures =
         healthProvider.procedures == null || healthProvider.procedures!.isEmpty;
+    final hasSubSpecialty = healthProvider.subSpeciality != null &&
+        healthProvider.subSpeciality!.isNotEmpty;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectableText.rich(
           TextSpan(
             children: [
+              if (hasSubSpecialty) ...[
+                TextSpan(
+                  text: 'Subespecialidad\n',
+                  style: theme.textTheme.subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                TextSpan(text: '${healthProvider.subSpeciality!.trim()}\n'),
+                const WidgetSpan(child: SizedBox(height: 32.0)),
+              ],
               if (!noLocation) ...[
                 TextSpan(
                   text: 'Ubicación\n',
