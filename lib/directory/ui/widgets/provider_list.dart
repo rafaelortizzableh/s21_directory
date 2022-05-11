@@ -12,7 +12,7 @@ class HealthProvidersListWrapper extends ConsumerWidget {
     final providerList = ref.watch(directoryProvider).healthProviders;
     var filteredList = ref.watch(directoryProvider).searchProviders();
     if (providerList.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator.adaptive());
     }
     return HealthProvidersList(providers: filteredList);
   }
