@@ -12,11 +12,14 @@ class OneColumnLayout extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final hasSelectedProvider =
         ref.watch(directoryProvider).selectedProvider != null;
+
     return Stack(
       children: [
         const HealthProvidersListWrapper(),
         if (hasSelectedProvider) ...[
-          const ColoredBox(color: AppConstants.s21White),
+          const SizedBox.expand(
+            child: ColoredBox(color: AppConstants.s21White),
+          ),
           const HealthProviderDetails(),
           Positioned(
             top: 8,
