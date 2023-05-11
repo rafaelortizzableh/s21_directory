@@ -1,22 +1,25 @@
+import 'package:collection/collection.dart';
+
 import '../directory.dart';
 import '../../core/core.dart';
 
 class DirectoryState {
-  final List<HealthProvider> healthProviders;
-  final HealthProvider? selectedProvider;
-  final String? error;
-  final String? searchQuery;
-  final String? specialtyFilterQuery;
-  final String? subSpecialtyFilterQuery;
-
-  DirectoryState({
+  const DirectoryState({
     required this.healthProviders,
+    required this.isLoading,
     this.selectedProvider,
     this.error,
     this.searchQuery,
     this.specialtyFilterQuery,
     this.subSpecialtyFilterQuery,
   });
+  final List<HealthProvider> healthProviders;
+  final HealthProvider? selectedProvider;
+  final String? error;
+  final String? searchQuery;
+  final String? specialtyFilterQuery;
+  final String? subSpecialtyFilterQuery;
+  final bool isLoading;
 
   DirectoryState copyWith({
     List<HealthProvider>? healthProviders,
@@ -25,6 +28,7 @@ class DirectoryState {
     String? searchQuery,
     String? specialtyFilterQuery,
     String? subSpecialtyFilterQuery,
+    bool isLoading = false,
   }) {
     return DirectoryState(
       healthProviders: healthProviders ?? this.healthProviders,
@@ -34,18 +38,19 @@ class DirectoryState {
       specialtyFilterQuery: specialtyFilterQuery ?? this.specialtyFilterQuery,
       subSpecialtyFilterQuery:
           subSpecialtyFilterQuery ?? this.subSpecialtyFilterQuery,
+      isLoading: isLoading,
     );
   }
 
   List<String> allSpecialties() {
-    var allSpecialties = <String>[];
-    for (var provider in healthProviders) {
-      if (provider.speciality != null && provider.speciality!.isNotEmpty) {
-        final specialty = provider.speciality;
-        allSpecialties.add(specialty!);
+    final allSpecialties = healthProviders.map((e) {
+      if (e.speciality != null && e.speciality!.isNotEmpty) {
+        return e.speciality!;
       }
-    }
-    final specialtiesSet = <String>{...allSpecialties};
+      return null;
+    }).toList();
+
+    final specialtiesSet = <String>{...allSpecialties.whereNotNull()};
     return specialtiesSet.toList();
   }
 
@@ -62,7 +67,7 @@ class DirectoryState {
     return subSpecialtiesSet.toList();
   }
 
-  List<HealthProvider> searchProviders() {
+  List<HealthProvider> get filteredHealthProviders {
     var providersToSearch = healthProviders;
     if (specialtyFilterQuery != null) {
       final filteredProviders = providersToSearch
@@ -124,6 +129,7 @@ class DirectoryState {
       selectedProvider: selectedProvider,
       specialtyFilterQuery: null,
       subSpecialtyFilterQuery: subSpecialtyFilterQuery,
+      isLoading: isLoading,
     );
   }
 
@@ -135,6 +141,7 @@ class DirectoryState {
       selectedProvider: selectedProvider,
       specialtyFilterQuery: specialtyFilterQuery,
       subSpecialtyFilterQuery: null,
+      isLoading: isLoading,
     );
   }
 
@@ -146,6 +153,7 @@ class DirectoryState {
       selectedProvider: selectedProvider,
       specialtyFilterQuery: specialtyFilterQuery,
       subSpecialtyFilterQuery: subSpecialtyFilterQuery,
+      isLoading: isLoading,
     );
   }
 
@@ -157,6 +165,19 @@ class DirectoryState {
       selectedProvider: null,
       specialtyFilterQuery: specialtyFilterQuery,
       subSpecialtyFilterQuery: subSpecialtyFilterQuery,
+      isLoading: isLoading,
+    );
+  }
+
+  DirectoryState removeError() {
+    return DirectoryState(
+      healthProviders: healthProviders,
+      selectedProvider: selectedProvider,
+      error: null,
+      searchQuery: searchQuery,
+      specialtyFilterQuery: specialtyFilterQuery,
+      subSpecialtyFilterQuery: subSpecialtyFilterQuery,
+      isLoading: isLoading,
     );
   }
 }

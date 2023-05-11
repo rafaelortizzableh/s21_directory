@@ -5,22 +5,63 @@ import '../../../core/core.dart';
 import '../../../directory/directory.dart';
 
 class HealthProvidersListWrapper extends ConsumerWidget {
-  const HealthProvidersListWrapper({Key? key}) : super(key: key);
+  const HealthProvidersListWrapper({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final providerList = ref.watch(directoryProvider).healthProviders;
-    var filteredList = ref.watch(directoryProvider).searchProviders();
-    if (providerList.isEmpty) {
+    final filteredHealthProvidersList = ref.watch(
+      directoryProvider.select((dp) => dp.filteredHealthProviders),
+    );
+
+    final error = ref.watch(
+      directoryProvider.select((dp) => dp.error),
+    );
+
+    final isLoading = ref.watch(directoryProvider.select((dp) => dp.isLoading));
+
+    if (isLoading) {
       return const Center(child: CircularProgressIndicator.adaptive());
     }
-    return HealthProvidersList(providers: filteredList);
+
+    if (error != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                error,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _refreshHealthProviders(ref),
+                child: const Text('Reintentar'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return HealthProvidersList(
+      providers: filteredHealthProvidersList,
+    );
+  }
+
+  void _refreshHealthProviders(WidgetRef ref) {
+    ref.read(directoryProvider.notifier).getProviders(
+          isRefresh: true,
+        );
   }
 }
 
 class HealthProvidersList extends ConsumerStatefulWidget {
-  const HealthProvidersList({Key? key, required this.providers})
-      : super(key: key);
+  const HealthProvidersList({
+    super.key,
+    required this.providers,
+  });
   final List<HealthProvider> providers;
 
   @override
@@ -40,26 +81,29 @@ class _HealthProvidersListState extends ConsumerState<HealthProvidersList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        controller: _scrollController,
-        itemCount: widget.providers.length,
-        itemBuilder: (context, index) {
-          return HealthProviderListTile(
-            healthProvider: widget.providers[index],
-            onPressed: () {
-              ref
-                  .read(directoryProvider.notifier)
-                  .selectProvider(widget.providers[index]);
-              final platform =
-                  ref.read(platformCheckerProvider).checkPlatform();
-              if (platform != TypeOfPlatform.other) {
-                FocusScope.of(context).unfocus();
-              }
-            },
-            tileColor:
-                index.isEven ? AppConstants.s21Grey : AppConstants.s21White,
-            isSelected: ref.watch(directoryProvider).selectedProvider ==
-                widget.providers[index],
-          );
-        });
+      controller: _scrollController,
+      itemCount: widget.providers.length,
+      itemBuilder: (context, index) {
+        final healthProvider = widget.providers[index];
+        final isSelected =
+            ref.watch(directoryProvider).selectedProvider == healthProvider;
+
+        return HealthProviderListTile(
+          healthProvider: healthProvider,
+          onPressed: () {
+            ref.read(directoryProvider.notifier).selectProvider(
+                  healthProvider,
+                );
+            final platform = ref.read(platformCheckerProvider).checkPlatform();
+            if (platform != TypeOfPlatform.other) {
+              FocusScope.of(context).unfocus();
+            }
+          },
+          tileColor:
+              index.isEven ? AppConstants.s21Grey : AppConstants.s21White,
+          isSelected: isSelected,
+        );
+      },
+    );
   }
 }

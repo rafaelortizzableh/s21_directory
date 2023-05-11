@@ -22,12 +22,11 @@ class DirectoryService {
             contentType: 'application/json',
           ));
 
-      final remoteEntityProviders = <HealthProviderRemoteEntity>[];
-
-      for (var item in result.data) {
-        final provider = HealthProviderRemoteEntity.fromMap(item);
-        remoteEntityProviders.add(provider);
-      }
+      final remoteEntityProviders = (result.data as List)
+          .map(
+            (remoteEntity) => HealthProviderRemoteEntity.fromMap(remoteEntity),
+          )
+          .toList();
 
       final healthProviders = remoteEntityProviders
           .map((entity) => HealthProvider.fromRemoteEntity(entity))
@@ -35,8 +34,14 @@ class DirectoryService {
       return healthProviders;
     } catch (e) {
       debugPrint(e.toString());
-      throw Exception(
-          'No se ha podido cargar el directorio médico.\nInténtalo de nuevo más tarde.');
+      throw GetHealthProvidersRemotelyException(
+        'No se ha podido cargar el directorio médico.\nInténtalo de nuevo más tarde.',
+      );
     }
   }
+}
+
+class GetHealthProvidersRemotelyException implements Exception {
+  final String message;
+  GetHealthProvidersRemotelyException(this.message);
 }

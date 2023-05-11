@@ -27,7 +27,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    var searchQuery = ref.watch(directoryProvider).searchQuery;
+    final searchQuery = ref.watch(directoryProvider).searchQuery;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
@@ -75,15 +75,18 @@ class _SearchBarState extends ConsumerState<SearchBar> {
                 ),
               ),
             ),
-            if (searchQuery != null && searchQuery != '')
+            if (searchQuery != null && searchQuery != '') ...[
               IconButton(
-                  onPressed: () {
-                    _textController.clear();
-                    ref.read(directoryProvider.notifier).clearSearch();
-                  },
-                  icon: const Icon(CupertinoIcons.clear)),
-            if (searchQuery != null && searchQuery != '')
+                onPressed: () {
+                  _textController.clear();
+                  ref.read(directoryProvider.notifier).clearSearch();
+                },
+                icon: const Icon(CupertinoIcons.clear),
+              ),
+            ],
+            if (searchQuery != null && searchQuery != '') ...[
               const SizedBox(width: 4.0),
+            ],
           ],
         ),
       ),

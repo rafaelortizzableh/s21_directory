@@ -5,7 +5,7 @@ import 'package:s21_directory/core/core.dart';
 import 'package:s21_directory/directory/directory.dart';
 
 class HealthProviderDetails extends ConsumerWidget {
-  const HealthProviderDetails({Key? key}) : super(key: key);
+  const HealthProviderDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,8 +32,7 @@ class HealthProviderDetails extends ConsumerWidget {
 }
 
 class HealthProviderHeader extends StatelessWidget {
-  const HealthProviderHeader({Key? key, required this.healthProvider})
-      : super(key: key);
+  const HealthProviderHeader({super.key, required this.healthProvider});
   final HealthProvider healthProvider;
 
   @override
@@ -59,13 +58,13 @@ class HealthProviderHeader extends StatelessWidget {
         const WidgetSpan(child: SizedBox(height: 8.0)),
         TextSpan(
           text: '${healthProvider.name}\n',
-          style: theme.textTheme.subtitle1?.copyWith(
+          style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold, color: AppConstants.s21Black),
         ),
         if (hasSpecialty) ...[
           TextSpan(
             text: 'Especialidad \n${healthProvider.speciality}',
-            style: theme.textTheme.subtitle2?.copyWith(
+            style: theme.textTheme.titleSmall?.copyWith(
               color: AppConstants.s21Blue,
               fontWeight: FontWeight.bold,
             ),
@@ -85,21 +84,15 @@ class HealthProviderBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final noBuilding =
-        healthProvider.building == null || healthProvider.building!.isEmpty;
-    final noConsultory =
-        healthProvider.consultory == null || healthProvider.consultory!.isEmpty;
-    final noModule =
-        healthProvider.module == null || healthProvider.module!.isEmpty;
-    final noFloor =
-        healthProvider.floor == null || healthProvider.floor!.isEmpty;
+    final noBuilding = healthProvider.building?.isEmpty ?? true;
+    final noConsultory = healthProvider.consultory?.isEmpty ?? true;
+    final noModule = healthProvider.module?.isEmpty ?? true;
+    final noFloor = healthProvider.floor?.isEmpty ?? true;
     final noLocation = noBuilding && noConsultory && noModule && noFloor;
-    final noContact =
-        healthProvider.telephones == null || healthProvider.telephones!.isEmpty;
-    final noProcedures =
-        healthProvider.procedures == null || healthProvider.procedures!.isEmpty;
-    final hasSubSpecialty = healthProvider.subSpeciality != null &&
-        healthProvider.subSpeciality!.isNotEmpty;
+    final noContact = healthProvider.telephones?.isEmpty ?? true;
+    final noProcedures = healthProvider.procedures?.isEmpty ?? true;
+    final hasSubSpecialty = healthProvider.subSpeciality?.isNotEmpty ?? false;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -109,7 +102,7 @@ class HealthProviderBody extends StatelessWidget {
               if (hasSubSpecialty) ...[
                 TextSpan(
                   text: 'Subespecialidad\n',
-                  style: theme.textTheme.subtitle1
+                  style: theme.textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 TextSpan(text: '${healthProvider.subSpeciality!.trim()}\n'),
@@ -118,24 +111,31 @@ class HealthProviderBody extends StatelessWidget {
               if (!noLocation) ...[
                 TextSpan(
                   text: 'Ubicación\n',
-                  style: theme.textTheme.subtitle1
+                  style: theme.textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 if (!noBuilding)
                   TextSpan(
-                      text: 'Edificio: ${healthProvider.building!.trim()}\n'),
+                    text: 'Edificio: ${healthProvider.building!.trim()}\n',
+                  ),
                 if (!noFloor)
-                  TextSpan(text: '${healthProvider.floor!.trim()}\n'),
+                  TextSpan(
+                    text: '${healthProvider.floor!.trim()}\n',
+                  ),
                 if (!noModule)
-                  TextSpan(text: '${healthProvider.module!.trim()}\n'),
+                  TextSpan(
+                    text: '${healthProvider.module!.trim()}\n',
+                  ),
                 if (!noConsultory)
-                  TextSpan(text: '${healthProvider.consultory!.trim()}\n'),
+                  TextSpan(
+                    text: '${healthProvider.consultory!.trim()}\n',
+                  ),
                 const WidgetSpan(child: SizedBox(height: 32.0)),
               ],
               if (!noContact) ...[
                 TextSpan(
                   text: 'Contacto\n',
-                  style: theme.textTheme.subtitle1
+                  style: theme.textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 for (final telephone in healthProvider.telephones!)
@@ -146,11 +146,13 @@ class HealthProviderBody extends StatelessWidget {
               if (!noProcedures) ...[
                 TextSpan(
                   text: 'Procedimientos\n',
-                  style: theme.textTheme.subtitle1
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                for (final procedure in healthProvider.procedures!)
+                for (final procedure in healthProvider.procedures!) ...[
                   TextSpan(text: procedure),
+                ],
               ],
             ],
           ),
@@ -182,7 +184,7 @@ class FallBackNoProviderSelected extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme
-              .subtitle1
+              .titleMedium
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
       ],

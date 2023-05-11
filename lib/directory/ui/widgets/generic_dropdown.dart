@@ -55,7 +55,7 @@ class AppDropdownInput<T> extends StatelessWidget {
                             maxLines: 2,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyLarge
                                 ?.copyWith(color: AppConstants.s21Black),
                           ),
                         );

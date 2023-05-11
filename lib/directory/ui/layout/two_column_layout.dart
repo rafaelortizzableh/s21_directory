@@ -10,9 +10,9 @@ class TwoColumnLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: maxWidth,
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: const [
+        children: [
           Flexible(
             child: Material(elevation: 2, child: HealthProvidersListWrapper()),
           ),
