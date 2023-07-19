@@ -6,15 +6,15 @@ import '../../directory.dart';
 
 class AppBarSearchAndFilters extends ConsumerWidget {
   const AppBarSearchAndFilters({
-    Key? key,
-    required this.maxWidth,
-  }) : super(key: key);
-  final double maxWidth;
+    super.key,
+    required this.isMobileLayout,
+  });
+  final bool isMobileLayout;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: maxWidth < 600 ? maxWidth * 0.9 : maxWidth * 0.6,
+    return FractionallySizedBox(
+      widthFactor: isMobileLayout ? 0.9 : 0.6,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 4.0),
         child: Column(

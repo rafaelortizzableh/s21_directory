@@ -3,7 +3,7 @@ import '../core/core.dart';
 import '../directory/directory.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -19,12 +19,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const HomePage(),
+      navigatorKey: AppConstants.navigatorKey,
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

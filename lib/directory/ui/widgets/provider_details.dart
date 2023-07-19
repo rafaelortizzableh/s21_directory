@@ -47,15 +47,15 @@ class HealthProviderHeader extends StatelessWidget {
           child: Align(
             alignment: AlignmentDirectional.center,
             child: SizedBox(
-              height: 80,
-              width: 80,
+              height: 160,
+              width: 160,
               child: CachedNetworkImage(
                 imageUrl: healthProvider.imageUrl,
               ),
             ),
           ),
         ),
-        const WidgetSpan(child: SizedBox(height: 8.0)),
+        const WidgetSpan(child: SizedBox(height: 12.0)),
         TextSpan(
           text: '${healthProvider.name}\n',
           style: theme.textTheme.titleMedium?.copyWith(
@@ -77,8 +77,10 @@ class HealthProviderHeader extends StatelessWidget {
 }
 
 class HealthProviderBody extends StatelessWidget {
-  const HealthProviderBody({Key? key, required this.healthProvider})
-      : super(key: key);
+  const HealthProviderBody({
+    super.key,
+    required this.healthProvider,
+  });
   final HealthProvider healthProvider;
 
   @override
