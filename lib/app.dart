@@ -9,17 +9,23 @@ class S21Directory extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Directorio de Prestadores',
-      theme: ThemeData(
-        fontFamily: 'Open Sans',
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: AppConstants.s21Red),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppConstants.s21Red,
-          foregroundColor: AppConstants.s21White,
-        ),
-      ),
+      theme: _AppTheme._lightTheme,
       home: const ResponsiveLayout(),
       navigatorKey: AppConstants.navigatorKey,
+    );
+  }
+}
+
+abstract class _AppTheme {
+  static ThemeData get _lightTheme {
+    return ThemeData(
+      fontFamily: 'Open Sans',
+      useMaterial3: false,
+      colorScheme: ColorScheme.fromSeed(seedColor: AppConstants.s21Red),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppConstants.s21Red,
+        foregroundColor: AppConstants.s21White,
+      ),
     );
   }
 }
