@@ -2,33 +2,24 @@ import 'package:flutter/material.dart';
 import '../core/core.dart';
 import '../directory/directory.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class S21Directory extends StatelessWidget {
+  const S21Directory({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Directorio de Prestadores',
       theme: ThemeData(
         fontFamily: 'Open Sans',
-        primaryColor: AppConstants.s21Red,
+        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: AppConstants.s21Red),
         appBarTheme: const AppBarTheme(
           backgroundColor: AppConstants.s21Red,
+          foregroundColor: AppConstants.s21White,
         ),
       ),
-      home: const HomePage(),
+      home: const ResponsiveLayout(),
       navigatorKey: AppConstants.navigatorKey,
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const ResponsiveLayout();
   }
 }

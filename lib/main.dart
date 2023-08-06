@@ -6,5 +6,5 @@ import 'app.dart';
 
 void main() {
   initApp();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: S21Directory()));
 }
