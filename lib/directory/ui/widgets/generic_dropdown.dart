@@ -34,7 +34,9 @@ class AppDropdownInput<T> extends StatelessWidget {
                 return InputDecorator(
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 8.0),
+                      horizontal: 20.0,
+                      vertical: 8.0,
+                    ),
                     labelText: hintText,
                     border: InputBorder.none,
                   ),
@@ -45,7 +47,9 @@ class AppDropdownInput<T> extends StatelessWidget {
                       isExpanded: true,
                       isDense: true,
                       onChanged: onChanged,
-                      style: const TextStyle(overflow: TextOverflow.ellipsis),
+                      style: const TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       items: options.map((T value) {
                         return DropdownMenuItem<T>(
                           value: value,
@@ -53,10 +57,10 @@ class AppDropdownInput<T> extends StatelessWidget {
                             getLabel(value),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: AppConstants.s21Black),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: AppConstants.s21Black,
+                                    ),
                           ),
                         );
                       }).toList(),
@@ -66,10 +70,15 @@ class AppDropdownInput<T> extends StatelessWidget {
               },
             ),
           ),
-          if (value != null)
-            IconButton(
-                onPressed: onCanceled, icon: const Icon(CupertinoIcons.clear)),
-          if (value != null) const SizedBox(width: 4.0),
+          if (value != null) ...[
+            Padding(
+              padding: const EdgeInsets.only(right: 4.0),
+              child: IconButton(
+                onPressed: onCanceled,
+                icon: const Icon(CupertinoIcons.clear),
+              ),
+            ),
+          ],
         ],
       ),
     );
