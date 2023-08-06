@@ -98,33 +98,15 @@ class HealthProvider {
   }
 
   factory HealthProvider.fromRemoteEntity(
-      HealthProviderRemoteEntity remoteEntity) {
+    HealthProviderRemoteEntity remoteEntity,
+  ) {
     try {
-      final telephonesListWithBreak = <String>[];
-      if (remoteEntity.telefono.contains('<br>')) {
-        final allPhones = remoteEntity.telefono.split('<br>');
-        telephonesListWithBreak.addAll(allPhones);
-      } else {
-        telephonesListWithBreak.add(remoteEntity.telefono);
-      }
-
-      final proceduresListWithBreak = <String>[];
-      if (remoteEntity.procedimientos.contains('<br>')) {
-        final allProcedures = remoteEntity.procedimientos.split('<br>');
-        proceduresListWithBreak.addAll(allProcedures);
-      } else {
-        proceduresListWithBreak.add(remoteEntity.procedimientos);
-      }
-      telephonesListWithBreak.removeWhere((e) => e.trim().isEmpty);
-      proceduresListWithBreak.removeWhere((e) => e.trim().isEmpty);
-      final telephonesList = telephonesListWithBreak
-          .map((word) => word.replaceAll('<br>', ''))
-          .toList();
-      final proceduresList = proceduresListWithBreak
-          .map((word) => word.replaceAll('<br>', ''))
-          .toList();
-      proceduresList.removeWhere((element) => element.trim().isEmpty);
-      telephonesList.removeWhere((element) => element.trim().isEmpty);
+      final telephonesList = _sanitizeStringAndCreateList(
+        remoteEntity.telefono,
+      );
+      final proceduresList = _sanitizeStringAndCreateList(
+        remoteEntity.procedimientos,
+      );
 
       return HealthProvider(
         imageUrl: remoteEntity.picture.isNotEmpty
@@ -142,11 +124,24 @@ class HealthProvider {
         proceduresString: remoteEntity.procedimientos,
         procedures: proceduresList,
       );
-    } catch (e) {
-      final error = e;
+    } catch (error) {
       debugPrint(error.toString());
       rethrow;
     }
+  }
+
+  static List<String> _sanitizeStringAndCreateList(
+    String listAsString,
+  ) {
+    final initialList = !listAsString.contains('<br>')
+        ? [listAsString]
+        : listAsString.split('<br>');
+    final sanitizedList = initialList
+        .map((word) => word.replaceAll('<br>', ''))
+        .where((element) => element.trim().isNotEmpty)
+        .toList();
+
+    return sanitizedList;
   }
 
   String toJson() => json.encode(toMap());
