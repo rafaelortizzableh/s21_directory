@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../core/core.dart';
 import '../directory/directory.dart';
 
@@ -21,7 +22,10 @@ abstract class _AppTheme {
     return ThemeData(
       fontFamily: 'Open Sans',
       useMaterial3: false,
-      colorScheme: ColorScheme.fromSeed(seedColor: AppConstants.s21Red),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppConstants.s21Red,
+      ),
+      primarySwatch: AppConstants.primaryMaterialColor,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppConstants.s21Red,
         foregroundColor: AppConstants.s21White,

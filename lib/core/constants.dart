@@ -12,5 +12,22 @@ abstract class AppConstants {
   static const Color s21Black = Color(0xFF4E423B);
   static const Color s21Red = Color(0xFF9b120b);
 
+  static const _colorPalette = {
+    50: Color.fromRGBO(155, 18, 11, .1),
+    100: Color.fromRGBO(155, 18, 11, .2),
+    200: Color.fromRGBO(155, 18, 11, .3),
+    300: Color.fromRGBO(155, 18, 11, .4),
+    400: Color.fromRGBO(155, 18, 11, .5),
+    500: Color.fromRGBO(155, 18, 11, .6),
+    600: Color.fromRGBO(155, 18, 11, .7),
+    700: Color.fromRGBO(155, 18, 11, .8),
+    800: Color.fromRGBO(155, 18, 11, .9),
+    900: Color.fromRGBO(155, 18, 11, 1),
+  };
+  static const primaryMaterialColor = MaterialColor(
+    0xFF9B120B,
+    _colorPalette,
+  );
+
   static final navigatorKey = GlobalKey<NavigatorState>();
 }
