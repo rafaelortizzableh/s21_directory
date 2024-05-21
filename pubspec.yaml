@@ -15,16 +15,16 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  dio: ^5.0.3
-  flutter_riverpod: ^2.3.2
-  cached_network_image: ^3.2.0
-  collection: ^1.17.1
+  dio: ^5.4.3+1
+  flutter_riverpod: ^2.5.1
+  cached_network_image: ^3.3.1
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_native_splash: ^2.0.2
-  flutter_lints: ^2.0.1
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
