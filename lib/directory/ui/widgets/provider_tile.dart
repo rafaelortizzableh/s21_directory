@@ -5,12 +5,12 @@ import '../../directory.dart';
 
 class HealthProviderListTile extends StatelessWidget {
   const HealthProviderListTile({
-    Key? key,
+    super.key,
     required this.healthProvider,
     required this.isSelected,
     required this.tileColor,
     required this.onPressed,
-  }) : super(key: key);
+  });
   final HealthProvider healthProvider;
   final bool isSelected;
   final Color tileColor;

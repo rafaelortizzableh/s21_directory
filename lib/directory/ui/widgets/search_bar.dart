@@ -6,7 +6,7 @@ import 'package:s21_directory/directory/directory.dart';
 import '../../../core/core.dart';
 
 class SearchBar extends ConsumerStatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  const SearchBar({super.key});
   static const InputBorder border = OutlineInputBorder(
     borderSide: BorderSide.none,
     borderRadius: BorderRadius.all(Radius.circular(90)),

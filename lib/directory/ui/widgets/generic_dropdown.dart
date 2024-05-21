@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../../core/core.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
@@ -11,14 +12,14 @@ class AppDropdownInput<T> extends StatelessWidget {
   final VoidCallback onCanceled;
 
   const AppDropdownInput({
-    Key? key,
+    super.key,
     this.hintText = 'Por favor, selecciona una opción',
     this.options = const [],
     required this.getLabel,
     required this.value,
     required this.onChanged,
     required this.onCanceled,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

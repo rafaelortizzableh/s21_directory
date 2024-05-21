@@ -165,7 +165,7 @@ class HealthProviderBody extends StatelessWidget {
 }
 
 class FallBackNoProviderSelected extends StatelessWidget {
-  const FallBackNoProviderSelected({Key? key}) : super(key: key);
+  const FallBackNoProviderSelected({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -65,12 +65,12 @@ class AppBarSearchAndFilters extends ConsumerWidget {
 
 class FilterButton extends ConsumerWidget {
   const FilterButton({
-    Key? key,
+    super.key,
     required this.items,
     required this.onChanged,
     required this.value,
     required this.hint,
-  }) : super(key: key);
+  });
   final List<String> items;
   final Function(String) onChanged;
   final String? value;
