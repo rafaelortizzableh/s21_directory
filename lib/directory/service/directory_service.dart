@@ -5,8 +5,8 @@ import '../../../../core/core.dart';
 import '../../directory/directory.dart';
 
 class DirectoryService {
+  const DirectoryService({required this.dio});
   final Dio dio;
-  DirectoryService({required this.dio});
 
   Future<List<HealthProvider>> getHealthProvidersRemotely() async {
     try {
@@ -33,8 +33,10 @@ class DirectoryService {
           .toList();
       return healthProviders;
     } catch (e) {
-      debugPrint(e.toString());
-      throw GetHealthProvidersRemotelyException(
+      final errorToPrint = e is DioException ? e.error : e;
+      debugPrint(errorToPrint.toString());
+
+      throw const GetHealthProvidersRemotelyException(
         'No se ha podido cargar el directorio médico.\nInténtalo de nuevo más tarde.',
       );
     }
@@ -43,5 +45,5 @@ class DirectoryService {
 
 class GetHealthProvidersRemotelyException implements Exception {
   final String message;
-  GetHealthProvidersRemotelyException(this.message);
+  const GetHealthProvidersRemotelyException(this.message);
 }
