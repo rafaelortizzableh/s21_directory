@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'check_platform_stub.dart'
     if (dart.library.io) 'check_platform_mobile.dart'
     if (dart.library.js) 'check_platform_web.dart';
@@ -11,5 +13,5 @@ abstract class PlatformChecker {
     return _instance ??= getManager();
   }
 
-  TypeOfPlatform checkPlatform();
+  TypeOfPlatform checkPlatform(ThemeData theme);
 }

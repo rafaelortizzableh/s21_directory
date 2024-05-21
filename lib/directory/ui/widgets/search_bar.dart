@@ -43,22 +43,25 @@ class _SearchBarState extends ConsumerState<SearchBar> {
                 textInputAction: TextInputAction.search,
                 autocorrect: false,
                 onSaved: (_) {
-                  final platform =
-                      ref.read(platformCheckerProvider).checkPlatform();
+                  final platform = ref
+                      .read(platformCheckerProvider)
+                      .checkPlatform(context.theme);
                   if (platform == TypeOfPlatform.android) {
                     FocusScope.of(context).unfocus();
                   }
                 },
                 onEditingComplete: () {
-                  final platform =
-                      ref.read(platformCheckerProvider).checkPlatform();
+                  final platform = ref
+                      .read(platformCheckerProvider)
+                      .checkPlatform(context.theme);
                   if (platform == TypeOfPlatform.android) {
                     FocusScope.of(context).unfocus();
                   }
                 },
                 onFieldSubmitted: (_) {
-                  final platform =
-                      ref.read(platformCheckerProvider).checkPlatform();
+                  final platform = ref
+                      .read(platformCheckerProvider)
+                      .checkPlatform(context.theme);
                   if (platform == TypeOfPlatform.android) {
                     FocusScope.of(context).unfocus();
                   }

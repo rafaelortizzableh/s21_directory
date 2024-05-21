@@ -94,7 +94,8 @@ class _HealthProvidersListState extends ConsumerState<HealthProvidersList> {
             ref.read(directoryProvider.notifier).selectProvider(
                   healthProvider,
                 );
-            final platform = ref.read(platformCheckerProvider).checkPlatform();
+            final platform =
+                ref.read(platformCheckerProvider).checkPlatform(context.theme);
             if (platform != TypeOfPlatform.other) {
               FocusScope.of(context).unfocus();
             }

@@ -1,6 +1,4 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import 'check_platform.dart';
 
@@ -8,18 +6,18 @@ PlatformChecker getManager() => WebPlatformChecker();
 
 class WebPlatformChecker extends PlatformChecker {
   @override
-  TypeOfPlatform checkPlatform() {
-    if (kIsWeb) {
-      final userAgent = window.navigator.userAgent.toString().toLowerCase();
+  TypeOfPlatform checkPlatform(ThemeData theme) {
+    final platform = theme.platform;
+    final isAndroid = platform == TargetPlatform.android;
+    final isIOS = platform == TargetPlatform.iOS;
 
-      if (userAgent.contains("ipad") || userAgent.contains("iphone")) {
-        return TypeOfPlatform.ios;
-      } else if (userAgent.contains("android")) {
-        return TypeOfPlatform.android;
-      } else {
-        return TypeOfPlatform.other;
-      }
+    if (isIOS) {
+      return TypeOfPlatform.ios;
     }
+    if (isAndroid) {
+      return TypeOfPlatform.android;
+    }
+
     return TypeOfPlatform.other;
   }
 }

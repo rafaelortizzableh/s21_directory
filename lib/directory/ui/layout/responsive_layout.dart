@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../directory.dart';
 import '../../../core/core.dart';
+import '../../directory.dart';
 
 final _isMobileLayoutProvider = Provider.autoDispose<bool>((ref) {
   return ref.watch(
@@ -20,7 +20,8 @@ class ResponsiveLayout extends ConsumerWidget {
     final isMobileLayout = ref.watch(_isMobileLayoutProvider);
     return GestureDetector(
       onTap: () {
-        final platform = ref.read(platformCheckerProvider).checkPlatform();
+        final platform =
+            ref.read(platformCheckerProvider).checkPlatform(context.theme);
         if (platform != TypeOfPlatform.other) {
           FocusScope.of(context).unfocus();
         }
