@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 import '../directory.dart';
 import '../../core/core.dart';
 
@@ -50,17 +48,16 @@ class DirectoryState {
       return null;
     }).toList();
 
-    final specialtiesSet = <String>{...allSpecialties.whereNotNull()};
+    final specialtiesSet = <String>{...allSpecialties.nonNulls};
     return specialtiesSet.toList();
   }
 
   List<String> allSubSpecialties() {
     var allSubSpecialties = <String>[];
     for (var provider in healthProviders) {
-      if (provider.subSpeciality != null &&
-          provider.subSpeciality!.isNotEmpty) {
-        var subSpeciality = provider.subSpeciality;
-        allSubSpecialties.add(subSpeciality!);
+      final subSpeciality = provider.subSpeciality;
+      if (subSpeciality != null && subSpeciality.isNotEmpty) {
+        allSubSpecialties.add(subSpeciality);
       }
     }
     final subSpecialtiesSet = <String>{...allSubSpecialties};
@@ -84,29 +81,33 @@ class DirectoryState {
       final newList = <HealthProvider>{...filteredProviders}.toList();
       providersToSearch = newList;
     }
+    final searchQuery = this.searchQuery;
     if (searchQuery != null && searchQuery != '') {
       final searchByNameProviders = providersToSearch.where((element) {
         return element.name.withoutDiacriticalMarks
             .toLowerCase()
-            .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
+            .contains(searchQuery.withoutDiacriticalMarks.toLowerCase());
       });
       final searchByProcedureProviders = providersToSearch.where((element) {
-        return element.proceduresString != null &&
-            element.proceduresString!.withoutDiacriticalMarks
+        final proceduresString = element.proceduresString;
+        return proceduresString != null &&
+            proceduresString.withoutDiacriticalMarks
                 .toLowerCase()
-                .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
+                .contains(searchQuery.withoutDiacriticalMarks.toLowerCase());
       });
       final searchBySpecialtyProviders = providersToSearch.where((element) {
-        return element.speciality != null &&
-            element.speciality!.withoutDiacriticalMarks
+        final speciality = element.speciality;
+        return speciality != null &&
+            speciality.withoutDiacriticalMarks
                 .toLowerCase()
-                .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
+                .contains(searchQuery.withoutDiacriticalMarks.toLowerCase());
       });
       final searchBySubSpecialtyProviders = providersToSearch.where((element) {
-        return element.subSpeciality != null &&
-            element.subSpeciality!.withoutDiacriticalMarks
+        final subSpeciality = element.subSpeciality;
+        return subSpeciality != null &&
+            subSpeciality.withoutDiacriticalMarks
                 .toLowerCase()
-                .contains(searchQuery!.withoutDiacriticalMarks.toLowerCase());
+                .contains(searchQuery.withoutDiacriticalMarks.toLowerCase());
       });
 
       final newList = <HealthProvider>{

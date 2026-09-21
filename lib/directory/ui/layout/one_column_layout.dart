@@ -29,7 +29,7 @@ class OneColumnLayout extends ConsumerWidget {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppConstants.s21Red.withOpacity(0.25),
+                  color: AppConstants.s21Red.withValues(alpha: 0.25),
                 ),
                 child: IconButton(
                   onPressed: () => _clearSelectedProvider(ref),

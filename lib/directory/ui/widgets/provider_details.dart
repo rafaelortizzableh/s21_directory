@@ -38,17 +38,16 @@ class HealthProviderHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final hasSpecialty = healthProvider.speciality != null &&
-        healthProvider.speciality!.isNotEmpty;
+    final speciality = healthProvider.speciality;
+    final hasSpecialty = speciality != null && speciality.isNotEmpty;
 
     return SelectableText.rich(
       TextSpan(children: [
         WidgetSpan(
           child: Align(
             alignment: AlignmentDirectional.center,
-            child: SizedBox(
-              height: 160,
-              width: 160,
+            child: SizedBox.square(
+              dimension: 250,
               child: CachedNetworkImage(
                 imageUrl: healthProvider.imageUrl,
               ),
@@ -63,7 +62,7 @@ class HealthProviderHeader extends StatelessWidget {
         ),
         if (hasSpecialty) ...[
           TextSpan(
-            text: 'Especialidad \n${healthProvider.speciality}',
+            text: 'Especialidad \n$speciality',
             style: theme.textTheme.titleSmall?.copyWith(
               color: AppConstants.s21Blue,
               fontWeight: FontWeight.bold,
