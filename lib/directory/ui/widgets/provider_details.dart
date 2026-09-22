@@ -50,6 +50,14 @@ class HealthProviderHeader extends StatelessWidget {
               dimension: 250,
               child: CachedNetworkImage(
                 imageUrl: healthProvider.imageUrl,
+                memCacheWidth: 250,
+                errorWidget: (context, url, error) {
+                  return Image.network(
+                    AppConstants.fallBackImageUrl,
+                    height: 250,
+                    width: 250,
+                  );
+                },
               ),
             ),
           ),
